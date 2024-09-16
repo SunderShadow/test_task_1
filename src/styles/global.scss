@@ -23,3 +23,10 @@ html, body {
   font-family: "DM Sans", sans-serif;
   color: cfg.$text-color;
 }
+
+hr {
+  margin: 0;
+  opacity: .5;
+
+  background-color: cfg.$light-gray-color;
+}
