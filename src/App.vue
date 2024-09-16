@@ -1,6 +1,7 @@
 <script setup>
 import Sidebar from "@/components/Sidebar/index.vue"
 import Header  from "@/components/Header/index.vue"
+import MainHeader from "@/_page_parts/MainHeader/index.vue";
 </script>
 
 <template>
@@ -11,6 +12,10 @@ import Header  from "@/components/Header/index.vue"
         <Header />
       </div>
       <hr class="divider">
+
+      <div class="main_header container">
+        <MainHeader/>
+      </div>
     </main>
   </div>
 </template>
@@ -31,5 +36,9 @@ main {
 .divider {
   background-color: #E4E4E4;
   margin: 0;
+}
+
+.main_header {
+  margin-top: 2rem;
 }
 </style>
