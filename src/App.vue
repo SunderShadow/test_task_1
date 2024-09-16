@@ -3,7 +3,9 @@ import Sidebar    from "@/components/Sidebar/index.vue"
 import Header     from "@/components/Header/index.vue"
 import MainHeader from "@/_page_parts/MainHeader/index.vue"
 import Card       from "@/_page_parts/Card.vue"
-import {computed, ref} from "vue";
+
+import {computed, onUpdated, ref} from "vue"
+import Pagination from "@/_page_parts/Pagination.vue"
 
 function shuffleArray(array) {
   for (let i = array.length - 1; i >= 0; i--) {
@@ -19,10 +21,9 @@ const cardPerPage = ref(9);
 const page = ref(1)
 
 const visibleCards = computed(() => cards.slice(
-    (cardPerPage.value * (page - 1)) + page.value - 1,
+    cardPerPage.value * (page.value - 1),
     page.value * cardPerPage.value
 ))
-
 </script>
 
 <template>
@@ -30,7 +31,7 @@ const visibleCards = computed(() => cards.slice(
     <Sidebar/>
     <main>
       <div class="container">
-        <Header />
+        <Header :vechicles-count="cards.length"/>
       </div>
 
       <hr>
@@ -41,6 +42,10 @@ const visibleCards = computed(() => cards.slice(
 
       <div class="cards container">
         <Card v-for="card in visibleCards" v-bind="card"/>
+      </div>
+
+      <div class="pagination container">
+        <Pagination :card-per-page="cardPerPage" :cards-length="cards.length" v-model="page"/>
       </div>
     </main>
   </div>
@@ -53,6 +58,7 @@ const visibleCards = computed(() => cards.slice(
 
 main {
   flex-grow: 1;
+  margin-bottom: 3rem;
 }
 
 .container {
@@ -68,6 +74,10 @@ main {
   grid-template-columns: 1fr 1fr 1fr;
   gap: 1.8rem;
 
+  margin-top: 2rem;
+}
+
+.pagination {
   margin-top: 2rem;
 }
 </style>

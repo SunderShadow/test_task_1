@@ -1,15 +1,21 @@
 <script setup>
+import Badge from "@/components/Badge.vue"
+import IconPlus from "@/components/icons/IconPlus.vue"
+import Avatar from "@/components/Avatar.vue"
+import Select from "@/components/Select.vue"
 
-import Badge from "@/components/Badge.vue";
-import IconPlus from "@/components/icons/IconPlus.vue";
-import Avatar from "@/components/Avatar.vue";
-import Select from "@/components/Select.vue";
+defineProps({
+  vechiclesCount: {
+    required: true,
+    type: Number
+  }
+})
 </script>
 
 <template>
 <header>
   <h1>Vechicles</h1>
-  <div class="badge"><Badge>256</Badge></div>
+  <div class="badge"><Badge>{{vechiclesCount}}</Badge></div>
   <button class="add_btn">
     <IconPlus />
   </button>

@@ -1,19 +1,18 @@
 <script setup>
-
+import Button        from "@/components/Button.vue"
+import IconPlus      from "@/components/icons/IconPlus.vue"
 import IconMagnifier from "@/components/icons/IconMagnifier.vue"
-import Button from "@/components/Button.vue"
-import IconPlus from "@/components/icons/IconPlus.vue"
-import Select from "@/_page_parts/MainHeader/Select.vue"
-
+import Select        from "@/_page_parts/MainHeader/Select.vue"
+import Input         from "@/components/Input.vue"
 </script>
 
 <template>
 <div class="main_header_container">
-  <div class="input">
-    <input type="text" placeholder="Search VIN">
-
-    <IconMagnifier />
-  </div>
+  <Input placeholder="Search VIN">
+    <template v-slot:icon>
+      <IconMagnifier />
+    </template>
+  </Input>
 
   <Select @change="$emit('cardsPerPage:change', $event)"/>
 
@@ -32,23 +31,9 @@ import Select from "@/_page_parts/MainHeader/Select.vue"
 }
 
 .input {
-  display: flex;
-  align-items: center;
-
-  border: 1px solid cfg.$light-gray-color;
-  border-radius: .5rem;
-
   width: 350px;
-  padding: .5em;
-
-  input {
-    width: 100%;
-
-    border: none;
-    outline: none;
-    background: transparent;
-  }
 }
+
 
 .add_vechicle_btn {
   margin-left: auto;
