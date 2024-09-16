@@ -44,7 +44,8 @@ import IconSettings    from "@/components/icons/IconSettings.vue"
 @use "@/cfg";
 
 aside {
-  position: relative;
+  position: sticky;
+  top: 0;
 
   height: 100vh;
 
