@@ -1,10 +1,11 @@
 <script setup>
 import Input from "@/components/Input.vue"
 import IconChevron from "@/components/icons/IconChevron.vue"
+import {computed} from "vue";
 
 const model = defineModel()
 
-defineProps({
+const props = defineProps({
   cardPerPage: {
     required: true,
     type: Number
@@ -14,6 +15,25 @@ defineProps({
     type: Number
   }
 })
+
+const pageTotal = computed(() => Math.ceil(props.cardsLength / props.cardPerPage))
+
+const emit = defineEmits()
+function back() {
+  if (model.value - 1 === 0) {
+    return
+  }
+
+  emit('update:modelValue', model.value - 1)
+}
+
+function forward() {
+  if (model.value + 1 > pageTotal.value) {
+    return
+  }
+
+  emit('update:modelValue', model.value + 1)
+}
 </script>
 
 <template>
@@ -21,13 +41,13 @@ defineProps({
     Showing {{ cardPerPage }} out of {{ cardsLength }}
 
     <div class="pagination">
-      <IconChevron class="back" @click="$emit('update:modelValue', model - 1)"/>
+      <IconChevron class="back" @click="back"/>
 
       <Input v-model="model"/>
       of
-      <Input :model-value="Math.ceil(cardsLength / cardPerPage)" disabled/>
+      <Input :model-value="pageTotal" disabled/>
 
-      <IconChevron class="forward" @click="$emit('update:modelValue', model + 1)"/>
+      <IconChevron class="forward" @click="forward"/>
     </div>
   </div>
 </template>

@@ -4,26 +4,55 @@ import Header     from "@/components/Header/index.vue"
 import MainHeader from "@/_page_parts/MainHeader/index.vue"
 import Card       from "@/_page_parts/Card.vue"
 
-import {computed, onUpdated, ref} from "vue"
+import {ref, watch} from "vue"
 import Pagination from "@/_page_parts/Pagination.vue"
 
-function shuffleArray(array) {
-  for (let i = array.length - 1; i >= 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
-  }
-  return array
-}
-
-const cards = shuffleArray([...Array(180).fill({counter: 17}), ...Array(76).fill({counter: 30})])
 const cardPerPage = ref(9);
 
-const page = ref(1)
+const page   = ref(1)
+const search = ref('')
+const cards  = ref([])
 
-const visibleCards = computed(() => cards.slice(
-    cardPerPage.value * (page.value - 1),
-    page.value * cardPerPage.value
-))
+const meta = ref({
+  last_page: 0,
+  total: 0
+})
+
+let searchLoadTimeOut
+
+watch(search, () => {
+  clearTimeout(searchLoadTimeOut)
+  searchLoadTimeOut = setTimeout(() => {
+    load()
+  }, 300)
+})
+
+watch(page, load)
+watch(cardPerPage, load)
+async function load() {
+  const URL = "https://api.caiman-app.de/api/cars-test"
+
+  let data = {
+    per_page: cardPerPage.value.toString(),
+    page: page.value.toString()
+  }
+
+  if (search.value) {
+    data.search = search.value.toString()
+  }
+
+  fetch(URL + '?' + new URLSearchParams(data).toString(), {
+    credentials: 'include'
+  })
+      .then(data => data.json())
+      .then(data => {
+        cards.value = data.data
+        meta.value = data.meta
+      })
+}
+
+load()
+
 </script>
 
 <template>
@@ -31,21 +60,29 @@ const visibleCards = computed(() => cards.slice(
     <Sidebar/>
     <main>
       <div class="container">
-        <Header :vechicles-count="cards.length"/>
+        <Header :vechicles-count="meta.total"/>
       </div>
 
       <hr>
 
       <div class="main_header container">
-        <MainHeader @cardsPerPage:change="cardPerPage = $event.target.value" />
+        <MainHeader
+            v-model:search="search"
+            @cardsPerPage:change="cardPerPage = $event"
+        />
       </div>
 
       <div class="cards container">
-        <Card v-for="card in visibleCards" v-bind="card"/>
+        <Card
+            v-for="card in cards"
+            :name="card.vehicle_name ?? 'Nullname'"
+            :uploads="card.uploads"
+            :vin="card.vin"
+        />
       </div>
 
       <div class="pagination container">
-        <Pagination :card-per-page="cardPerPage" :cards-length="cards.length" v-model="page"/>
+        <Pagination :card-per-page="cardPerPage" :cards-length="meta.total" v-model="page"/>
       </div>
     </main>
   </div>

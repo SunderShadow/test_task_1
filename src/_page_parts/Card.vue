@@ -5,9 +5,17 @@ import IconCheck from "@/components/icons/IconCheck.vue";
 const COUNTER_MAX = 30
 
 defineProps({
-  counter: {
+  uploads: {
     required: true,
     type: Number
+  },
+  vin: {
+    required: true,
+    type: String
+  },
+  name: {
+    required: true,
+    type: String
   }
 })
 
@@ -19,17 +27,17 @@ defineProps({
       <img src="/auto.png" alt="">
     </div>
 
-    <h1>Mercedes-Benz C-Class</h1>
-    <div class="vin">WDB 1400321A333419</div>
+    <h1>{{ name }}</h1>
+    <div class="vin">{{ vin }}</div>
 
     <hr>
 
     <div class="bottom_info">
-      <Badge :type="counter === COUNTER_MAX ? 'success' : 'default'">
-        <template v-if="counter === COUNTER_MAX">
+      <Badge :type="uploads === COUNTER_MAX ? 'success' : 'default'">
+        <template v-if="uploads === COUNTER_MAX">
           <IconCheck class="check_icon"/>
         </template>
-        {{ counter }}/{{COUNTER_MAX}}
+        {{ uploads }}/{{ COUNTER_MAX }}
       </Badge>
       <span>3 days left</span>
     </div>
