@@ -1,7 +1,8 @@
 <script setup>
-import Sidebar from "@/components/Sidebar/index.vue"
-import Header  from "@/components/Header/index.vue"
-import MainHeader from "@/_page_parts/MainHeader/index.vue";
+import Sidebar    from "@/components/Sidebar/index.vue"
+import Header     from "@/components/Header/index.vue"
+import MainHeader from "@/_page_parts/MainHeader/index.vue"
+import Card       from "@/_page_parts/Card.vue"
 </script>
 
 <template>
@@ -11,10 +12,15 @@ import MainHeader from "@/_page_parts/MainHeader/index.vue";
       <div class="container">
         <Header />
       </div>
-      <hr class="divider">
+
+      <hr>
 
       <div class="main_header container">
         <MainHeader/>
+      </div>
+
+      <div class="cards">
+        <Card />
       </div>
     </main>
   </div>
@@ -31,11 +37,6 @@ main {
 
 .container {
   padding: 0 30px;
-}
-
-.divider {
-  background-color: #E4E4E4;
-  margin: 0;
 }
 
 .main_header {
