@@ -54,6 +54,7 @@ aside {
 }
 
 h1 {
+  width: max-content;
   font-size: 1.5rem;
   font-weight: 700;
 
