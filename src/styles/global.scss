@@ -1,0 +1,22 @@
+// "DM Sans" font
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+
+// https://meyerweb.com/eric/tools/css/reset/
+@import "reset";
+
+*, ::before, ::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+}
+
+#app {
+  min-height: 100%;
+}
+
+:root {
+  font-size: 16px;
+  font-family: "DM Sans", sans-serif;
+}
