@@ -78,6 +78,7 @@ load()
             :name="card.vehicle_name ?? 'Nullname'"
             :uploads="card.uploads"
             :vin="card.vin"
+            :img="card?.photo?.url ?? ''"
         />
       </div>
 

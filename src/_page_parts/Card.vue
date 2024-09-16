@@ -16,6 +16,10 @@ defineProps({
   name: {
     required: true,
     type: String
+  },
+  img: {
+    required: true,
+    type: String
   }
 })
 
@@ -24,7 +28,7 @@ defineProps({
 <template>
   <article>
     <div class="img">
-      <img src="/auto.png" alt="">
+      <img :src="img" alt="">
     </div>
 
     <h1>{{ name }}</h1>
@@ -48,15 +52,27 @@ defineProps({
 @use "@/cfg.scss";
 
 article {
+  display: flex;
+  flex-direction: column;
+
   padding: 1.5rem;
   border-radius: .5rem;
   background-color: #F3F6F8;
 }
 
 .img {
+  width: 100%;
+
   display: flex;
+  flex-grow: 1;
   justify-content: center;
   align-items: center;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 }
 
 h1 {
