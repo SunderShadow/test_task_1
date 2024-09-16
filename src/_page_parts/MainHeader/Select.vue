@@ -16,7 +16,7 @@ const select = ref()
     <div class="vechicles_select-container">
       <select ref="select">
         <option v-for="i in 8" :value="i">{{i}}</option>
-        <option value="9" :selected="true">9</option>
+        <option value="9" selected>9</option>
       </select>
       <IconChevron class="chevron" />
     </div>

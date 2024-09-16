@@ -12,10 +12,10 @@ import Select from "@/_page_parts/MainHeader/Select.vue"
   <div class="input">
     <input type="text" placeholder="Search VIN">
 
-    <IconMagnifier/>
+    <IconMagnifier />
   </div>
 
-  <Select />
+  <Select @change="$emit('cardsPerPage:change', $event)"/>
 
   <Button class="add_vechicle_btn">
     <template v-slot:icon><IconPlus/></template>

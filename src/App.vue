@@ -3,7 +3,7 @@ import Sidebar    from "@/components/Sidebar/index.vue"
 import Header     from "@/components/Header/index.vue"
 import MainHeader from "@/_page_parts/MainHeader/index.vue"
 import Card       from "@/_page_parts/Card.vue"
-import {ref} from "vue";
+import {computed, ref} from "vue";
 
 function shuffleArray(array) {
   for (let i = array.length - 1; i >= 0; i--) {
@@ -14,14 +14,14 @@ function shuffleArray(array) {
 }
 
 const cards = shuffleArray([...Array(180).fill({counter: 17}), ...Array(76).fill({counter: 30})])
-const cardPerPage = 9;
+const cardPerPage = ref(9);
 
 const page = ref(1)
 
-const visibleCards = cards.slice(
-    (cardPerPage * (page - 1)) + page.value - 1,
-    page.value * cardPerPage
-)
+const visibleCards = computed(() => cards.slice(
+    (cardPerPage.value * (page - 1)) + page.value - 1,
+    page.value * cardPerPage.value
+))
 
 </script>
 
@@ -36,7 +36,7 @@ const visibleCards = cards.slice(
       <hr>
 
       <div class="main_header container">
-        <MainHeader/>
+        <MainHeader @cardsPerPage:change="cardPerPage = $event.target.value" />
       </div>
 
       <div class="cards container">
